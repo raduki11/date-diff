@@ -1,23 +1,71 @@
 <div class="container">
-    <h1>Date Difference Calculator</h1>
-    <div class="form-group">
-      <label for="date1">First Date:</label>
-      <input type="number" [(ngModel)]="day1" placeholder="Day" />
-      <input type="number" [(ngModel)]="month1" placeholder="Month" />
-      <input type="number" [(ngModel)]="year1" placeholder="Year" />
+  <form [formGroup]="dateForm">
+    <div formArrayName="datePairs">
+      <div *ngFor="let pair of datePairs.controls; let i = index" [formGroupName]="i">
+        <mat-card class="date-card">
+          <mat-card-content>
+            <!-- Start Date Inputs -->
+            <div class="date-input-group">
+              <mat-form-field appearance="fill">
+                <mat-label>Start Day</mat-label>
+                <input matInput formControlName="startDay" type="number" placeholder="DD">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Start Month</mat-label>
+                <input matInput formControlName="startMonth" type="number" placeholder="MM">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Start Year</mat-label>
+                <input matInput formControlName="startYear" type="number" placeholder="YYYY">
+              </mat-form-field>
+            </div>
+
+            <!-- End Date Inputs -->
+            <div class="date-input-group">
+              <mat-form-field appearance="fill">
+                <mat-label>End Day</mat-label>
+                <input matInput formControlName="endDay" type="number" placeholder="DD">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>End Month</mat-label>
+                <input matInput formControlName="endMonth" type="number" placeholder="MM">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>End Year</mat-label>
+                <input matInput formControlName="endYear" type="number" placeholder="YYYY">
+              </mat-form-field>
+            </div>
+
+            <!-- Display the Difference for Each Pair -->
+            <div *ngIf="differences[i]" class="difference">
+              Difference: {{ differences[i].years }} years, {{ differences[i].months }} months, {{ differences[i].days }} days
+            </div>
+
+            <!-- Remove Button -->
+            <button mat-icon-button color="warn" (click)="removeDatePair(i)" *ngIf="datePairs.length > 1">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-    
-    <div class="form-group">
-      <label for="date2">Second Date:</label>
-      <input type="number" [(ngModel)]="day2" placeholder="Day" />
-      <input type="number" [(ngModel)]="month2" placeholder="Month" />
-      <input type="number" [(ngModel)]="year2" placeholder="Year" />
-    </div>
-    
-    <button (click)="calculateDifference()">Calculate Difference</button>
-  
-    <div *ngIf="result" class="result">
-      <p>{{ result }}</p>
-    </div>
-  </div>
-  
+
+    <!-- Add Another Pair Button -->
+    <button mat-raised-button color="primary" (click)="addDatePair()" class="add-btn">+ Add Another Date Pair</button>
+
+    <!-- Calculate Button -->
+    <button mat-raised-button color="accent" (click)="calculateDifferences()" class="calculate-btn">Calculate</button>
+  </form>
+
+  <!-- Display Total Difference -->
+  <mat-card *ngIf="differences.length > 0" class="result-card">
+    <mat-card-content>
+      <h3>Total Difference:</h3>
+      <p>{{ totalYears }} years, {{ totalMonths }} months, {{ totalDays }} days</p>
+    </mat-card-content>
+  </mat-card>
+</div>
