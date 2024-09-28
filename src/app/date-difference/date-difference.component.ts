@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CustomDate } from '../../utils/custom-date';
 
 @Component({
   selector: 'app-date-difference',
@@ -15,20 +16,20 @@ export class DateDifferenceComponent {
   result: string | null = null;
 
   calculateDifference() {
-    const date1 = new Date(this.year1, this.month1 - 1, this.day1); // Month is 0-indexed
-    const date2 = new Date(this.year2, this.month2 - 1, this.day2);
+    const date1 = new CustomDate(this.year1, this.month1 - 1, this.day1);
+    const date2 = new CustomDate(this.year2, this.month2 - 1, this.day2);
 
-    // Calculate the difference in milliseconds
-    const differenceInTime = date2.getTime() - date1.getTime();
+    if (!date1.isValidDate() || !date2.isValidDate())
+    {
+      console.log('invalid')
+      this.result = 'Please input valid dates';
+      return;
+    }
 
-    // Calculate the difference in days
-    const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
-    
-    // Calculate years and remaining days
-    const years = Math.floor(differenceInDays / 365);
-    const remainingDays = differenceInDays % 365;
+    const { years, months, days } = date1.difference(date2) 
 
     // Prepare the result
-    this.result = `The difference is ${years} year${years === 1 ? '' : 's'} and ${remainingDays} day${remainingDays === 1 ? '' : 's'}.`;
+    this.result = `The difference is ${years} year${years === 1 ? '' : 's'}, ${months} month${months === 1 ? '' : 's'} and ${days} day${days === 1 ? '' : 's'}.`;
   }
+
 }
