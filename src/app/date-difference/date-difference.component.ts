@@ -21,7 +21,6 @@ export class DateDifferenceComponent {
 
     if (!date1.isValidDate() || !date2.isValidDate())
     {
-      console.log('invalid')
       this.result = 'Please input valid dates';
       return;
     }

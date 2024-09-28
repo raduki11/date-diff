@@ -55,18 +55,15 @@ export class CustomDate {
         if (date2.getFullYear() > this.getFullYear()) {
           laterDate = date2;
           earlierDate = this;
-          console.log('year')
         }
         else if (date2.getFullYear() == this.getFullYear() && date2.getMonth() > this.getMonth()){
           laterDate = date2;
           earlierDate = this;
-          console.log('month')
         }
         else if (date2.getMonth() == this.getMonth() && date2.getDate() > this.getDate()){
           laterDate = date2;
           earlierDate = this;
         }
-        console.log(earlierDate)
     
         let years = laterDate.getFullYear() - earlierDate.getFullYear();
         let months = laterDate.getMonth() - earlierDate.getMonth();
@@ -82,7 +79,6 @@ export class CustomDate {
         if (days < 0) {
             months--;
             const prevMonth = new Date(earlierDate.getFullYear(), earlierDate.getMonth() + 1, 0);
-            console.log(earlierDate.getMonth())
             days += prevMonth.getDate(); // Add days from the previous month
         }
 
