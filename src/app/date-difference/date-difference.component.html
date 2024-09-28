@@ -1,0 +1,23 @@
+<div class="container">
+    <h1>Date Difference Calculator</h1>
+    <div class="form-group">
+      <label for="date1">First Date:</label>
+      <input type="number" [(ngModel)]="day1" placeholder="Day" />
+      <input type="number" [(ngModel)]="month1" placeholder="Month" />
+      <input type="number" [(ngModel)]="year1" placeholder="Year" />
+    </div>
+    
+    <div class="form-group">
+      <label for="date2">Second Date:</label>
+      <input type="number" [(ngModel)]="day2" placeholder="Day" />
+      <input type="number" [(ngModel)]="month2" placeholder="Month" />
+      <input type="number" [(ngModel)]="year2" placeholder="Year" />
+    </div>
+    
+    <button (click)="calculateDifference()">Calculate Difference</button>
+  
+    <div *ngIf="result" class="result">
+      <p>{{ result }}</p>
+    </div>
+  </div>
+  
