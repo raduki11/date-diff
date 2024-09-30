@@ -40,9 +40,8 @@ export class DateDifferenceComponent {
     }
         
 
-    const {years, months, days} = customDate1.difference(customDate2);
-    const difference: string = `The difference is ${years} year${years === 1 ? '' : 's'}, ${months} month${months === 1 ? '' : 's'} and ${days} day${days === 1 ? '' : 's'}.`;
-    this.datePairs[i].difference = difference
+    const differencePeriod = customDate1.difference(customDate2);
+    this.datePairs[i].difference = differencePeriod
   }
 
   calculateTotalDifference() {
