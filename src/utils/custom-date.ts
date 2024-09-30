@@ -1,9 +1,11 @@
+import { TimePeriod } from "./period";
+
 export class CustomDate {
     year: number;
     month: number; // 0-indexed (0 for January, 1 for February, ..., 11 for December)
     day: number;
 
-    constructor(year: number, month: number, day: number) {
+    constructor(day: number, month: number, year: number,) {
         this.year = year;
         this.month = month;
         this.day = day;
@@ -23,15 +25,9 @@ export class CustomDate {
 
     // Check if the date is valid considering leap years and month lengths
     isValidDate(): boolean {
-        const daysInMonth: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        
-        // Adjust February for leap years
-        if (CustomDate.isLeapYear(this.year)) {
-            daysInMonth[1] = 29;
-        }
 
         // Validate month and day
-        if (this.month < 0 || this.month > 11 || this.day < 1 || this.day > daysInMonth[this.month]) {
+        if (this.month < 0 || this.month > 11 || this.day < 1 || this.day > CustomDate.daysInMonth(this.year, this.month)) {
             return false;
         }
 
@@ -48,8 +44,8 @@ export class CustomDate {
     }
 
     // Calculate the difference between two CustomDate objects in years, months, and days
-    difference(date2: CustomDate): { years: number; months: number; days: number } {
-        let laterDate = new CustomDate(this.year, this.month, this.day);
+    difference(date2: CustomDate): TimePeriod {
+        let laterDate = new CustomDate(this.day, this.month, this.year);
         let earlierDate = date2;
 
         if (date2.getFullYear() > this.getFullYear()) {
@@ -81,8 +77,13 @@ export class CustomDate {
             const prevMonth = new Date(earlierDate.getFullYear(), earlierDate.getMonth() + 1, 0);
             days += prevMonth.getDate(); // Add days from the previous month
         }
+        
+        if (months < 0) {
+            years--;
+            months += 12; // Adjust months
+        }
 
-        return { years: years, months: months, days: days };
+        return new TimePeriod(years, months, days);
     }
 
     // Get the number of days in a given month of a year

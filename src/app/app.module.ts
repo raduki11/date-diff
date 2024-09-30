@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Required for Angular Material
 import { MatInputModule } from '@angular/material/input'; // Material input field
 import { MatButtonModule } from '@angular/material/button'; // Material button
@@ -29,6 +29,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()

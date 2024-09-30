@@ -1,34 +1,28 @@
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.date-card {
+.date-group {
   margin-bottom: 20px;
-  padding: 15px;
 }
 
-.result-card {
-  margin-top: 20px;
+.date-input {
+  display: inline-block;
+  margin-right: 20px;
 }
 
-.date-input-group {
-  display: flex;
-  justify-content: space-between;
+input {
+  width: 50px;
+  margin-right: 5px;
 }
 
-.form-field {
-  width: 30%;
-}
-
-.add-btn,
-.calculate-btn {
-  margin-top: 20px;
-}
-
-.difference {
+button {
   margin-top: 10px;
-  font-weight: bold;
-  color: #1976d2;
+}
+
+.total-difference-btn {
+  text-align: center; /* Center the button horizontally */
+  margin-top: 20px;    /* Add spacing from the content above */
+}
+
+.calculate-total {
+  width: 300px;    /* Set a large width for the button */
+  height: 50px;    /* Set a larger height */
+  font-size: 18px; /* Increase the font size for better readability */
 }
