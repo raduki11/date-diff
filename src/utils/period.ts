@@ -35,21 +35,10 @@ export class TimePeriod {
             totalDays += period.getDays();
         });
 
-        // To handle day overflow, we'll assume that the current year/month is irrelevant to the calculation
-        let currentMonth = 0; // Start with January (0-indexed)
-        let currentYear = 0; // Assume a baseline year for day calculations
-
         // Adjust for overflowing days
-        while (totalDays >= CustomDate.daysInMonth(currentYear, currentMonth)) {
-            totalDays -= CustomDate.daysInMonth(currentYear, currentMonth);
+        while (totalDays >= 30) {
+            totalDays -= 30;
             totalMonths++;
-            currentMonth++;
-
-            // Handle month overflow (12 months = 1 year)
-            if (currentMonth > 11) {
-                currentMonth = 0;
-                currentYear++;
-            }
         }
 
         // Adjust for overflowing months (12 months = 1 year)
