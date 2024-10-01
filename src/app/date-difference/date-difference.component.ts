@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CustomDate } from '../../utils/custom-date'; // Adjust the path based on where your class is
+import { TimePeriod } from '../../utils/period';
 
 @Component({
   selector: 'app-root',
@@ -45,6 +46,10 @@ export class DateDifferenceComponent {
   }
 
   calculateTotalDifference() {
-
+    this.datePairs.forEach((datePair, i) => {
+      this.calculateDifference(i);
+    })
+    const timePeriods: TimePeriod[] = this.datePairs.map(x => x.difference);
+    this.totalDifference = TimePeriod.addTimePeriods(timePeriods)
   }
 }
