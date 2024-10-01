@@ -49,38 +49,36 @@ export class CustomDate {
         let earlierDate = date2;
 
         if (date2.getFullYear() > this.getFullYear()) {
-          laterDate = date2;
-          earlierDate = this;
-        }
-        else if (date2.getFullYear() == this.getFullYear() && date2.getMonth() > this.getMonth()){
-          laterDate = date2;
-          earlierDate = this;
-        }
-        else if (date2.getMonth() == this.getMonth() && date2.getDate() > this.getDate()){
-          laterDate = date2;
-          earlierDate = this;
+            laterDate = date2;
+            earlierDate = this;
+        } else if (date2.getFullYear() == this.getFullYear()) {
+            if (date2.getMonth() > this.getMonth()) {
+                laterDate = date2;
+                earlierDate = this;
+            } else if (date2.getMonth() == this.getMonth()) {
+                if (date2.getDate() > this.getDate()) {
+                    laterDate = date2;
+                    earlierDate = this;
+                }
+            }
         }
     
         let years = laterDate.getFullYear() - earlierDate.getFullYear();
         let months = laterDate.getMonth() - earlierDate.getMonth();
         let days = laterDate.getDate() - earlierDate.getDate();
     
+        // Adjust for negative days
+        if (days < 0) {
+            // Get the last day of the previous month of laterDate
+            //const prevMonth = new Date(laterDate.getFullYear(), laterDate.getMonth(), 0);
+            days += CustomDate.daysInMonth(earlierDate.getFullYear(), earlierDate.getMonth()); // Add days from the previous month
+            months--; // Decrease the month count since we borrowed days
+        }
+
         // Adjust for negative months
         if (months < 0) {
             years--;
-            months += 12; // Adjust months
-        }
-    
-        // Adjust for negative days
-        if (days < 0) {
-            months--;
-            const prevMonth = new Date(earlierDate.getFullYear(), earlierDate.getMonth() + 1, 0);
-            days += prevMonth.getDate(); // Add days from the previous month
-        }
-        
-        if (months < 0) {
-            years--;
-            months += 12; // Adjust months
+            months += 12; // Adjust months by adding a year
         }
 
         return new TimePeriod(years, months, days);
